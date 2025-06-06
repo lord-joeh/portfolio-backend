@@ -19,6 +19,12 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  resetPasswordToken: {
+    type: String,
+  },
+  resetPasswordExpires: {
+    type: Date,
+  },
   createdAt: {
     type: Date,
     default: Date.now,
@@ -26,26 +32,6 @@ const userSchema = new Schema({
   updatedAt: {
     type: Date,
     default: Date.now,
-  },
-  verificationToken: {
-    type: String,
-    default: null,
-  },
-  isVerified: {
-    type: Boolean,
-    default: false,
-  },
-  resetPasswordToken: {
-    type: String,
-    default: null,
-  },
-  resetPasswordExpires: {
-    type: Date,
-    default: null,
-  },
-  otp: {
-    code: String,
-    expiresAt: Date,
   },
 });
 

@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 
 exports.authenticate = async (req, res, next) => {
   try {
-    const token = req.header('Authorization')?.replace('Bearer ', '');
+    const token = req.header('Authorization');
     if (!token) {
       return res.status(403).json({
         status: 'error',
@@ -27,7 +27,7 @@ exports.authenticate = async (req, res, next) => {
           error: err.message,
         });
       }
-      if (!decoded || decoded.id) {
+      if (!decoded || !decoded.id) {
         return res.status(500).json({
           status: 'error',
           message: 'Invalid token structure',
@@ -35,6 +35,7 @@ exports.authenticate = async (req, res, next) => {
       }
 
       req.userId = decoded.id;
+
       next();
     });
   } catch (error) {

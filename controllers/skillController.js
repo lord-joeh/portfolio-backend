@@ -32,7 +32,7 @@ exports.addSkill = async (req, res) => {
         message: 'Name and image are required',
       });
     }
-    const newSkill = new Skill({ name, image });
+    const newSkill = new Skill({ name, image: `${image}&raw=true`});
     await newSkill.save();
     res.status(201).json({
       success: true,

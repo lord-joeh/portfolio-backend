@@ -35,7 +35,7 @@ exports.addProject = async (req, res) => {
     const newProject = new Project({
       title,
       description,
-      imageUrl,
+      imageUrl: `${imageUrl}&raw=true`,
       link,
     });
     await newProject.save();

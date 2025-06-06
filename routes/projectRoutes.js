@@ -9,7 +9,7 @@ const {
 const { authenticate } = require('../middleware/authentication');
 
 // Get all projects
-router.get('/', authenticate, getAllProjects);
+router.get('/', getAllProjects);
 
 // Add a new project
 router.post('/', authenticate, addProject);

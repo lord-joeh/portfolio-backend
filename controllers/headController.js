@@ -13,7 +13,7 @@ exports.addImage = async (req, res) => {
     }
 
     // Create and save new image
-    const imageUrl = new Head({ image });
+    const imageUrl = new Head({ image: `${image}&raw=true` });
     const savedImage = await imageUrl.save();
 
     res.status(201).json({
