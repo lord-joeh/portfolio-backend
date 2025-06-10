@@ -7,5 +7,5 @@ exports.validateEmail = (email, res, next) => {
       message: 'Invalid email format',
     });
   }
-  next();
+  // next();
 };

@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const User = require('../models/UserModel');
 const { validateEmail } = require('../middleware/validateEmail');
+const { sendEmail } = require('../utils/sendEmail');
 
 exports.register = async (req, res) => {
   const { name, email, phone, password } = req.body;
