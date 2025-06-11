@@ -55,16 +55,21 @@ my_portfolio_backend/
 ## Setup Instructions
 
 1. **Clone the repository:**
+
    ```sh
-   git clone <repo-url>
+   git clone https://github.com/lord-joeh/portfolio-backend.git
    cd my_portfolio_backend
    ```
+
 2. **Install dependencies:**
+
    ```sh
    npm install
    ```
+
 3. **Configure environment variables:**
    - Create a `.env` file in the root directory with the following variables:
+
      ```env
      PORT=10000
      NODE_ENV=development
@@ -76,52 +81,62 @@ my_portfolio_backend/
      SMTP_PASS=your_smtp_pass
      SMTP_FROM=your_email_from_address
      ```
+
 4. **Start the server:**
+
    ```sh
    npm run dev
    ```
+
    The server will run on `http://localhost:10000` by default.
 
 ## API Endpoints
+
 ### About
+
 - `GET /about/info` — Get about section information
 - `POST /about/add-content` — Add or update about section content
 - `PUT /about/edit-content` — Edit existing about section
 
 ### Head
+
 - `GET /head/image` — View head image
 - `POST /head/add-image` — Add head image
 - `PUT /head/update-image` — Update head image
 - `DELETE /head/delete-image` — Delete head image
 
 ### Skills
+
 - `GET /skills/` — Get all skills
 - `POST /skills/create` — Add a new skill
 - `PUT /skills/update/:id` — Update a skill by ID
 - `DELETE /skills/delete/:id` — Delete a skill by ID
 
 ### Projects
+
 - `GET /projects/` — Get all projects
 - `POST /projects/` — Add a new project
 - `PUT /projects/:id` — Update a project by ID
 - `DELETE /projects/:id` — Delete a project by ID
 
 ### Certificates
+
 - `GET /certificates/` — Get all certificates
 - `POST /certificates/` — Add a new certificate
 - `PUT /certificates/:id` — Update a certificate by ID
 - `DELETE /certificates/:id` — Delete a certificate by ID
 
 ### Authentication
+
 - `POST /auth/register` — Register a new user
 - `POST /auth/login` — Login user
-- (Other endpoints may exist for password reset, verification, etc.)
-
 
 ## Utilities
+
 - **sendEmail.js**: Utility for sending emails using Nodemailer. Requires SMTP configuration in environment variables.
 
 ## Error Handling
+
 - All endpoints return JSON responses with `status` and `message` fields.
 - Validation errors return HTTP 400.
 - Not found errors return HTTP 404.
