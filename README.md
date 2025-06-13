@@ -3,9 +3,9 @@
 This is the backend for my portfolio website. It is built with Node.js, Express, and MongoDB (via Mongoose). The backend provides RESTful APIs for managing portfolio content such as About, Head, Skills, Projects, and Certificates, as well as user authentication.
 
 ## Table of Contents
+
 - [Project Structure](#project-structure)
 - [Setup Instructions](#setup-instructions)
-- [Environment Variables](#environment-variables)
 - [API Endpoints](#api-endpoints)
   - [About](#about)
   - [Head](#head)

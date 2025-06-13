@@ -8,6 +8,7 @@ const headRoutes = require('./routes/headRoutes');
 const skillRoute = require('./routes/skillRoute');
 const projectRoutes = require('./routes/projectRoutes');
 const certificateRoute = require('./routes/certificateRoute');
+const notificationRoute = require('./routes/notificationRoute')
 const cors = require('cors');
 
 const app = express();
@@ -26,6 +27,7 @@ app.use('/head', headRoutes);
 app.use('/skills', skillRoute);
 app.use('/projects', projectRoutes);
 app.use('/certificates', certificateRoute);
+app.use('/notifications', notificationRoute)
 
 app.listen(PORT, async () => {
   await connectDB().catch(console.dir);
