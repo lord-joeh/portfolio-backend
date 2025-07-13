@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 10000;
 
 const corsOptions = {
   origin: "https://joseph-mensahportfolio.vercel.app",
-  methods: ["GET", "POST", "DELETE"],
+  methods: ["GET", "POST", "DELETE", "PUT"],
 };
 
 app.use(cors(corsOptions));
