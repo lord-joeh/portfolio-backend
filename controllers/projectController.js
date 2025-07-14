@@ -15,7 +15,7 @@ exports.getAllProjects = async (req, res) => {
     }
 
     if (cacheProjects) {
-      console.log("Source: cache");
+      
       return res.status(200).json({
         success: true,
         message: "Projects retrieved successfully",
@@ -38,7 +38,7 @@ exports.getAllProjects = async (req, res) => {
       console.warn("Redis write failed:", err.message);
     }
 
-    console.log("Source: API");
+    
     res.status(200).json({
       success: true,
       message: "Projects retrieved successfully",

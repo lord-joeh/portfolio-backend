@@ -15,7 +15,7 @@ exports.getAllCertificates = async (req, res) => {
     }
 
     if (cacheCert) {
-      console.log("Source: cache");
+      
       return res.status(200).json({
         success: true,
         message: "Certificates retrieved successfully",
@@ -38,7 +38,7 @@ exports.getAllCertificates = async (req, res) => {
       console.warn("Redis write failed:", err.message);
     }
 
-    console.log("Source: API");
+    
     return res.status(200).json({
       success: true,
       message: "Certificates retrieved successfully",

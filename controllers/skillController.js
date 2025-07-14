@@ -15,7 +15,7 @@ exports.getAllSkills = async (req, res) => {
     }
 
     if (cacheSkills) {
-      console.log("Source: cache");
+      
       return res.status(200).json({
         success: true,
         message: "Skills retrieved successfully",
@@ -38,7 +38,7 @@ exports.getAllSkills = async (req, res) => {
       console.warn("Redis write failed:", err.message);
     }
 
-    console.log("Source: API");
+    
     res.status(200).json({
       status: "success",
       message: "Skills retrieved successfully",

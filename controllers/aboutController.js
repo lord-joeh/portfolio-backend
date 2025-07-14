@@ -14,7 +14,7 @@ exports.aboutInfo = async (req, res) => {
     }
 
     if (cacheInfo) {
-      console.log("Source: cache");
+      
       return res.status(200).json({ success: true, data: JSON.parse(cacheInfo) });
     }
 
@@ -30,7 +30,7 @@ exports.aboutInfo = async (req, res) => {
       console.warn("Redis write failed:", err.message);
     }
 
-    console.log("Source: API");
+    
     return res.status(200).json({ success: true, data: info });
   } catch (error) {
     console.error("Error fetching about info:", error.message);
