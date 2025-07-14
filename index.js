@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const connectDB = require("./config/db");
+const { connectRedis } = require("./config/redis");
 const auth = require("./routes/authRoutes");
 const aboutRoutes = require("./routes/aboutRoutes");
 const headRoutes = require("./routes/headRoutes");
@@ -15,7 +16,10 @@ const app = express();
 const PORT = process.env.PORT || 10000;
 
 const corsOptions = {
-  origin: "https://joseph-mensahportfolio.vercel.app",
+  origin:
+    process.env.NODE_ENV === "production"
+      ? "https://joseph-mensahportfolio.vercel.app"
+      : "http://localhost:5000",
   methods: ["GET", "POST", "DELETE", "PUT"],
 };
 
@@ -36,7 +40,8 @@ app.use("/notifications", notificationRoute);
 
 app.listen(PORT, async () => {
   await connectDB().catch(console.dir);
+  await connectRedis();
   console.log(
-    `Server running on port ${PORT} in ${process.env.NODE_ENV} mode.`
+    `🚀 Server running on port ${PORT} in ${process.env.NODE_ENV} mode.`
   );
 });

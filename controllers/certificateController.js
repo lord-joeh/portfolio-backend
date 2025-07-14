@@ -1,23 +1,53 @@
-const Certificate = require('../models/Certification');
+const Certificate = require("../models/Certification");
+const { client } = require("../config/redis");
+
+const REDIS_KEY = "allCert";
+const CACHE_TTL = 3600;
 
 exports.getAllCertificates = async (req, res) => {
   try {
+    let cacheCert;
+
+    try {
+      cacheCert = await client.get(REDIS_KEY);
+    } catch (err) {
+      console.warn("Redis read failed:", err.message);
+    }
+
+    if (cacheCert) {
+      console.log("Source: cache");
+      return res.status(200).json({
+        success: true,
+        message: "Certificates retrieved successfully",
+        data: JSON.parse(cacheCert),
+      });
+    }
+
     const certificates = await Certificate.find();
+
     if (!certificates) {
       return res.status(404).json({
         success: false,
-        message: 'No certificates found',
+        message: "No certificates found",
       });
     }
-    res.status(200).json({
+
+    try {
+      await client.setEx(REDIS_KEY, CACHE_TTL, JSON.stringify(certificates));
+    } catch (err) {
+      console.warn("Redis write failed:", err.message);
+    }
+
+    console.log("Source: API");
+    return res.status(200).json({
       success: true,
-      message: 'Certificates retrieved successfully',
+      message: "Certificates retrieved successfully",
       data: certificates,
     });
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: 'Internal server error',
+      message: "Internal server error",
       error: error.message,
     });
   }
@@ -29,7 +59,7 @@ exports.addCertificate = async (req, res) => {
     if (!title || !description || !imageUrl) {
       return res.status(400).json({
         success: false,
-        message: 'All fields are required',
+        message: "All fields are required",
       });
     }
     const newCertificate = new Certificate({
@@ -37,16 +67,22 @@ exports.addCertificate = async (req, res) => {
       description,
       imageUrl,
     });
+
     await newCertificate.save();
+    try {
+      await client.del(REDIS_KEY);
+    } catch (err) {
+      console.warn("Failed to delete Redis key:", err.message);
+    }
     res.status(201).json({
       success: true,
-      message: 'Certificate added successfully',
+      message: "Certificate added successfully",
       data: newCertificate,
     });
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: 'Internal server error',
+      message: "Internal server error",
       error: error.message,
     });
   }
@@ -59,29 +95,35 @@ exports.updateCertificate = async (req, res) => {
     if (!title || !description || !imageUrl) {
       return res.status(400).json({
         success: false,
-        message: 'All fields are required',
+        message: "All fields are required",
       });
     }
     const updatedCertificate = await Certificate.findByIdAndUpdate(
       id,
       { title, description, imageUrl },
-      { new: true },
+      { new: true }
     );
     if (!updatedCertificate) {
       return res.status(404).json({
         success: false,
-        message: 'Certificate not found',
+        message: "Certificate not found",
       });
+    }
+
+    try {
+      await client.del(REDIS_KEY);
+    } catch (err) {
+      console.warn("Failed to delete Redis key:", err.message);
     }
     res.status(200).json({
       success: true,
-      message: 'Certificate updated successfully',
+      message: "Certificate updated successfully",
       data: updatedCertificate,
     });
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: 'Internal server error',
+      message: "Internal server error",
       error: error.message,
     });
   }
@@ -94,18 +136,24 @@ exports.deleteCertificate = async (req, res) => {
     if (!deletedCertificate) {
       return res.status(404).json({
         success: false,
-        message: 'Certificate not found',
+        message: "Certificate not found",
       });
+    }
+
+    try {
+      await client.del(REDIS_KEY);
+    } catch (err) {
+      console.warn("Failed to delete Redis key:", err.message);
     }
     res.status(200).json({
       success: true,
-      message: 'Certificate deleted successfully',
+      message: "Certificate deleted successfully",
       data: deletedCertificate,
     });
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: 'Internal server error',
+      message: "Internal server error",
       error: error.message,
     });
   }

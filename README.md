@@ -1,21 +1,23 @@
 # My Portfolio Backend
 
-This is the backend for my portfolio website. It is built with Node.js, Express, and MongoDB (via Mongoose). The backend provides RESTful APIs for managing portfolio content such as About, Head, Skills, Projects, and Certificates, as well as user authentication.
+This is the backend for my portfolio website. It is built with Node.js, Express, Redis for server-side caching and MongoDB (via Mongoose). The backend provides RESTful APIs for managing portfolio content such as About, Head, Skills, Projects, and Certificates, as well as user authentication.
 
 ## Table of Contents
 
-- [Project Structure](#project-structure)
-- [Setup Instructions](#setup-instructions)
-- [API Endpoints](#api-endpoints)
-  - [About](#about)
-  - [Head](#head)
-  - [Skills](#skills)
-  - [Projects](#projects)
-  - [Certificates](#certificates)
-  - [Authentication](#authentication)
-- [Utilities](#utilities)
-- [Error Handling](#error-handling)
-- [License](#license)
+- [My Portfolio Backend](#my-portfolio-backend)
+  - [Table of Contents](#table-of-contents)
+  - [Project Structure](#project-structure)
+  - [Setup Instructions](#setup-instructions)
+  - [API Endpoints](#api-endpoints)
+    - [About](#about)
+    - [Head](#head)
+    - [Skills](#skills)
+    - [Projects](#projects)
+    - [Certificates](#certificates)
+    - [Authentication](#authentication)
+  - [Utilities](#utilities)
+  - [Error Handling](#error-handling)
+  - [License](#license)
 
 ---
 
