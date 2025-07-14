@@ -38,6 +38,11 @@ app.use("/projects", projectRoutes);
 app.use("/certificates", certificateRoute);
 app.use("/notifications", notificationRoute);
 
+// Health check
+app.get("/health", (req, res) => {
+  res.status(200).send("OK");
+});
+
 app.listen(PORT, async () => {
   await connectDB().catch(console.dir);
   await connectRedis();
