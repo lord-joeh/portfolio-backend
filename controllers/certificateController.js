@@ -2,7 +2,7 @@ const Certificate = require("../models/Certification");
 const { client } = require("../config/redis");
 
 const REDIS_KEY = "allCert";
-const CACHE_TTL = 3600;
+const CACHE_TTL = 604800;
 
 exports.getAllCertificates = async (req, res) => {
   try {

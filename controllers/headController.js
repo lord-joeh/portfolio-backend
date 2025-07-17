@@ -2,7 +2,7 @@ const Head = require("../models/HeadSection");
 const { client } = require("../config/redis");
 
 const REDIS_KEY = "head";
-const CACHE_TTL = 3600;
+const CACHE_TTL = 604800;
 
 exports.addImage = async (req, res) => {
   try {

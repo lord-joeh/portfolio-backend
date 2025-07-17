@@ -225,14 +225,12 @@ exports.resetPassword = async (req, res) => {
 
 exports.logout = async (req, res) => {
   try {
-    // In a real implementation, you might want to:
-    // 1. Invalidate the token (if using a token blacklist)
-    // 2. Clear any server-side sessions
 
     res.status(200).json({
       status: 'success',
       message: 'Logged out successfully',
     });
+    
   } catch (error) {
     console.error('Error logging out:', error);
     res.status(500).json({

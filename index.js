@@ -1,6 +1,5 @@
 require("dotenv").config();
 const express = require("express");
-const bodyParser = require("body-parser");
 const connectDB = require("./config/db");
 const { connectRedis } = require("./config/redis");
 const auth = require("./routes/authRoutes");
@@ -26,8 +25,8 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 //Middleware
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 //Routes
 app.use("/auth", auth);
@@ -40,7 +39,11 @@ app.use("/notifications", notificationRoute);
 
 // Health check
 app.get("/health", (req, res) => {
-  res.status(200).send("OK");
+  res.status(200).json({
+    success: true,
+    message: "Server healthy and running",
+    timestamp: new Date(),
+  });
 });
 
 app.listen(PORT, async () => {
