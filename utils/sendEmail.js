@@ -1,12 +1,13 @@
-const nodemailer = require('nodemailer');
-require('dotenv').config();
+const nodemailer = require("nodemailer");
+require("dotenv").config();
 
 // Create a transporter
 const transporter = nodemailer.createTransport({
-  service: process.env.EMAIL_SERVICE,
+  host: process.env.SMTP_SERVER,
+  port: process.env.SMTP_PORT,
   auth: {
-    user: process.env.GMAIL_USER,
-    pass: process.env.GMAIL_PASS,
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
   },
 });
 
@@ -24,7 +25,15 @@ exports.sendEmail = async (to, subject, html) => {
     if (error) {
       console.log(error);
     } else {
-      console.log('Email sent: ' + info.response);
+      console.log("Email sent: " + info.response);
     }
   });
+
+  try {
+    await transporter.verify();
+    console.log("✅ Server  ready to send messages");
+  } catch (err) {
+    console.error("Verification failed", err);
+  }
 };
+
