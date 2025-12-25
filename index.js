@@ -14,12 +14,12 @@ const helmet = require("helmet");
 
 const app = express();
 const PORT = process.env.PORT || 10000;
-
+const whiteList = [process.env.DOMAIN, process.env.FRONTEND_URL];
 const corsOptions = {
   origin:
-    process.env.NODE_ENV === "production"
-      ? process.env.FRONTEND_URL
-      : "http://localhost:5000",
+    process.env.NODE_ENV === "development"
+      ? whiteList.push("http://127.0.0.1:5500")
+      : whiteList,
   methods: ["GET", "POST", "DELETE", "PUT"],
 };
 
