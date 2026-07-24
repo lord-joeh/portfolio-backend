@@ -1,4 +1,19 @@
+<<<<<<< HEAD
 node_modules
 .env
 .vscode
 request.http
+=======
+.env
+node_modules
+dist
+pids
+logs
+.vscode
+.idea
+.DS_Store
+*.log
+*.pid
+*.seed
+*.pid.lock
+>>>>>>> origin/update

@@ -1,149 +1,98 @@
-# My Portfolio Backend
+<p align="center">
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
+</p>
 
-This is the backend for my portfolio website. It is built with Node.js, Express, Redis for server-side caching and MongoDB (via Mongoose). The backend provides RESTful APIs for managing portfolio content such as About, Head, Skills, Projects, and Certificates, as well as user authentication.
+[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
+[circleci-url]: https://circleci.com/gh/nestjs/nest
 
-## Table of Contents
+  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
+    <p align="center">
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
+<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
+<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
+<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
+<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
+  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
+    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
+  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
+</p>
+  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
+  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-- [My Portfolio Backend](#my-portfolio-backend)
-  - [Table of Contents](#table-of-contents)
-  - [Project Structure](#project-structure)
-  - [Setup Instructions](#setup-instructions)
-  - [API Endpoints](#api-endpoints)
-    - [About](#about)
-    - [Head](#head)
-    - [Skills](#skills)
-    - [Projects](#projects)
-    - [Certificates](#certificates)
-    - [Authentication](#authentication)
-  - [Utilities](#utilities)
-  - [Error Handling](#error-handling)
-  - [License](#license)
+## Description
 
----
+[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Project Structure
+## Project setup
 
-```
-my_portfolio_backend/
-├── config/
-│   └── db.js
-├── controllers/
-│   ├── aboutController.js
-│   ├── authController.js
-│   ├── certificateController.js
-│   ├── headController.js
-│   ├── projectController.js
-│   └── skillController.js
-├── models/
-│   ├── AboutSection.js
-│   ├── Certification.js
-│   ├── HeadSection.js
-│   ├── ProjectSection.js
-│   ├── SkillSection.js
-│   └── UserModel.js
-├── routes/
-│   ├── aboutRoutes.js
-│   ├── certificateRoute.js
-│   ├── headRoutes.js
-│   ├── projectRoutes.js
-│   └── skillRoute.js
-├── utils/
-│   └── sendEmail.js
-├── index.js
-├── package.json
-└── .env (not committed)
+```bash
+$ npm install
 ```
 
-## Setup Instructions
+## Compile and run the project
 
-1. **Clone the repository:**
+```bash
+# development
+$ npm run start
 
-   ```sh
-   git clone https://github.com/lord-joeh/portfolio-backend.git
-   cd my_portfolio_backend
-   ```
+# watch mode
+$ npm run start:dev
 
-2. **Install dependencies:**
+# production mode
+$ npm run start:prod
+```
 
-   ```sh
-   npm install
-   ```
+## Run tests
 
-3. **Configure environment variables:**
-   - Create a `.env` file in the root directory with the following variables:
+```bash
+# unit tests
+$ npm run test
 
-     ```env
-     PORT=10000
-     NODE_ENV=development
-     MONGO_URI=your_mongodb_connection_string
-     JWT_SECRET=your_jwt_secret
-     SMTP_HOST=your_smtp_host
-     SMTP_PORT=your_smtp_port
-     SMTP_USER=your_smtp_user
-     SMTP_PASS=your_smtp_pass
-     SMTP_FROM=your_email_from_address
-     ```
+# e2e tests
+$ npm run test:e2e
 
-4. **Start the server:**
+# test coverage
+$ npm run test:cov
+```
 
-   ```sh
-   npm run dev
-   ```
+## Deployment
 
-   The server will run on `http://localhost:10000` by default.
+When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
 
-## API Endpoints
+If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
 
-### About
+```bash
+$ npm install -g @nestjs/mau
+$ mau deploy
+```
 
-- `GET /about/info` — Get about section information
-- `POST /about/add-content` — Add or update about section content
-- `PUT /about/edit-content` — Edit existing about section
+With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
 
-### Head
+## Resources
 
-- `GET /head/image` — View head image
-- `POST /head/add-image` — Add head image
-- `PUT /head/update-image` — Update head image
-- `DELETE /head/delete-image` — Delete head image
+Check out a few resources that may come in handy when working with NestJS:
 
-### Skills
+- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
+- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
+- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
+- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
+- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
+- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
+- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
+- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
 
-- `GET /skills/` — Get all skills
-- `POST /skills/create` — Add a new skill
-- `PUT /skills/update/:id` — Update a skill by ID
-- `DELETE /skills/delete/:id` — Delete a skill by ID
+## Support
 
-### Projects
+Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-- `GET /projects/` — Get all projects
-- `POST /projects/` — Add a new project
-- `PUT /projects/:id` — Update a project by ID
-- `DELETE /projects/:id` — Delete a project by ID
+## Stay in touch
 
-### Certificates
-
-- `GET /certificates/` — Get all certificates
-- `POST /certificates/` — Add a new certificate
-- `PUT /certificates/:id` — Update a certificate by ID
-- `DELETE /certificates/:id` — Delete a certificate by ID
-
-### Authentication
-
-- `POST /auth/register` — Register a new user
-- `POST /auth/login` — Login user
-
-## Utilities
-
-- **sendEmail.js**: Utility for sending emails using Nodemailer. Requires SMTP configuration in environment variables.
-
-## Error Handling
-
-- All endpoints return JSON responses with `status` and `message` fields.
-- Validation errors return HTTP 400.
-- Not found errors return HTTP 404.
-- Server errors return HTTP 500.
+- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
+- Website - [https://nestjs.com](https://nestjs.com/)
+- Twitter - [@nestframework](https://twitter.com/nestframework)
 
 ## License
 
-This project is licensed under the ISC License.
+Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
