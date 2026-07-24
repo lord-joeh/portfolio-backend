@@ -53,6 +53,12 @@ export class CertificatesController {
     @Body() body: { title?: string; description?: string; issueDate?: string },
     @UploadedFile() file?: Express.Multer.File,
   ) {
-    return this.certificatesService.updateCertificate(id, body.title, body.description, body.issueDate, file);
+    return this.certificatesService.updateCertificate(
+      id,
+      body.title,
+      body.description,
+      body.issueDate,
+      file,
+    );
   }
 }

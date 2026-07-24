@@ -1,6 +1,5 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { SupabaseService } from '../supabase/supabase.service';
-import type { Express } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()

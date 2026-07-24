@@ -10,7 +10,6 @@ import {
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { AboutService } from './about.service';
 import { SupabaseAuthGuard } from '../auth/supabase-auth.guard';
-import type { Express } from 'express';
 
 @Controller('about')
 export class AboutController {
