@@ -11,7 +11,7 @@ export class CertificatesService {
       .getClient()
       .from('certifications')
       .select('*')
-      .order('issue_date', { ascending: false });
+      .order('order_index', { ascending: true });
 
     if (error) {
       throw new InternalServerErrorException(error.message);
@@ -101,5 +101,18 @@ export class CertificatesService {
 
     if (error) throw new InternalServerErrorException(error.message);
     return { success: true, data };
+  }
+
+  async reorderCertificates(updates: { id: string; order_index: number }[]) {
+    const promises = updates.map((update) =>
+      this.supabaseService
+        .getClient()
+        .from('certifications')
+        .update({ order_index: update.order_index })
+        .eq('id', update.id),
+    );
+
+    await Promise.all(promises);
+    return { success: true, message: 'Certificates reordered successfully' };
   }
 }

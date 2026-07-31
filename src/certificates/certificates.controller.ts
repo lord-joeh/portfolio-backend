@@ -45,6 +45,14 @@ export class CertificatesController {
     return this.certificatesService.deleteCertificate(id);
   }
 
+  @Patch('reorder')
+  @UseGuards(SupabaseAuthGuard)
+  async reorderCertificates(
+    @Body() body: { updates: { id: string; order_index: number }[] },
+  ) {
+    return this.certificatesService.reorderCertificates(body.updates);
+  }
+
   @Patch(':id')
   @UseGuards(SupabaseAuthGuard)
   @UseInterceptors(FileInterceptor('file'))

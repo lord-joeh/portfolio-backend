@@ -87,4 +87,19 @@ export class SkillsService {
     if (error) throw new InternalServerErrorException(error.message);
     return { success: true, data };
   }
+
+  async reorderSkills(updates: { id: string; order_index: number }[]) {
+    // Supabase JS doesn't have a built-in batch update for this specific case
+    // unless using rpc, so we will update them individually in a loop
+    const promises = updates.map((update) =>
+      this.supabaseService
+        .getClient()
+        .from('skills')
+        .update({ order_index: update.order_index })
+        .eq('id', update.id),
+    );
+
+    await Promise.all(promises);
+    return { success: true, message: 'Skills reordered successfully' };
+  }
 }

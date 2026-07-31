@@ -110,4 +110,17 @@ export class ProjectsService {
     if (error) throw new InternalServerErrorException(error.message);
     return { success: true, data };
   }
+
+  async reorderProjects(updates: { id: string; order_index: number }[]) {
+    const promises = updates.map((update) =>
+      this.supabaseService
+        .getClient()
+        .from('projects')
+        .update({ order_index: update.order_index })
+        .eq('id', update.id),
+    );
+
+    await Promise.all(promises);
+    return { success: true, message: 'Projects reordered successfully' };
+  }
 }

@@ -40,6 +40,14 @@ export class SkillsController {
     return this.skillsService.deleteSkill(id);
   }
 
+  @Patch('reorder')
+  @UseGuards(SupabaseAuthGuard)
+  async reorderSkills(
+    @Body() body: { updates: { id: string; order_index: number }[] },
+  ) {
+    return this.skillsService.reorderSkills(body.updates);
+  }
+
   @Patch(':id')
   @UseGuards(SupabaseAuthGuard)
   @UseInterceptors(FileInterceptor('file'))

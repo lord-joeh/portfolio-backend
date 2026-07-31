@@ -54,6 +54,14 @@ export class ProjectsController {
     return this.projectsService.deleteProject(id);
   }
 
+  @Patch('reorder')
+  @UseGuards(SupabaseAuthGuard)
+  async reorderProjects(
+    @Body() body: { updates: { id: string; order_index: number }[] },
+  ) {
+    return this.projectsService.reorderProjects(body.updates);
+  }
+
   @Patch(':id')
   @UseGuards(SupabaseAuthGuard)
   @UseInterceptors(FileInterceptor('file'))
