@@ -71,8 +71,4 @@ jobs:
             echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
             docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
             cd /opt/portfolio-backend
-            if [ -f "docker-compose.yaml" ]; then
-              docker compose -f docker-compose.yaml up -d --no-deps portfolio-backend
-            else
-              docker compose up -d --no-deps portfolio-bacend
-            fi
+            docker compose up -d --no-deps portfolio-backend
