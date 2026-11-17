@@ -1,0 +1,14 @@
+services:
+  portfolio-backend:
+    image: ghcr.io/lord-joeh/portfolio-backend:latest
+    container_name: portfolio-backend
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:5001:3000"
+    env_file:
+      - .env
+    healthcheck:
+      test: [ "CMD-SHELL", "wget -qO- http://127.0.0.1:3000/api/health  || exit 1" ]
+      interval: 1m30s
+      timeout: 30s
+      retries: 5

@@ -1,0 +1,88 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint-and-typecheck:
+    name: Code Quality & Typecheck
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Check Code Formatting
+        run: npx prettier --check "src/**/*.ts" "test/**/*.ts"
+
+      - name: Run ESLint
+        run: npm run lint
+
+  test-and-build:
+    name: Unit Tests & Build
+    runs-on: ubuntu-latest
+    env:
+      NODE_ENV: test
+      SUPABASE_URL: https://dummy.supabase.co
+      SUPABASE_KEY: dummy-key-for-ci-checks
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Unit Tests
+        run: npm test -- --passWithNoTests --coverage
+
+      - name: Compile NestJS App
+        run: npm run build
+
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-files
+          path: dist/
+          retention-days: 7
+
+  docker-smoke-test:
+    name: Docker Image Verification
+    runs-on: ubuntu-latest
+    needs: [lint-and-typecheck, test-and-build]
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: actions/setup-buildx-action@v3
+
+      - name: Build Docker Image (Smoke Test)
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: false
+          tags: portfolio-backend:ci-test
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

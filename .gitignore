@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-node_modules
-.env
-.vscode
-request.http
-=======
 .env
 node_modules
 dist
@@ -16,4 +10,3 @@ logs
 *.pid
 *.seed
 *.pid.lock
->>>>>>> origin/update
