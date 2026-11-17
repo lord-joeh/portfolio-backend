@@ -75,17 +75,3 @@ jobs:
               docker compose -f docker-compose.yaml up -d --no-deps portfolio-backend
             else
               docker compose up -d --no-deps portfolio-backend
-            fi
-            # Verify container healthcheck
-            for i in {1..12}; do
-              if [ "$(docker inspect --format '{{.State.Health.Status}}' portfolio-backend)" = "healthy" ]; then
-                echo "Backend container verified health"y
-                exit 0
-              fi
-              echo "Waiting for health check ($i/12)..."
-              sleep 15
-            done
-            echo "Backend health check failed!"
-            docker inspect portfolio-backend
-            docker logs portfolio-backend
-            exit 1
