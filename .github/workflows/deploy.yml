@@ -78,12 +78,14 @@ jobs:
             fi
             # Verify container healthcheck
             for i in {1..12}; do
-              if docker exec portfolio-backend wget -qO- http://127.0.0.1:3000/api/health | grep -q "status"; then
-                echo "Backend container verified healthy."
+              if [ "$(docker inspect --format '{{.State.Health.Status}}' portfolio-backend)" = "healthy" ]; then
+                echo "Backend container verified health"y
                 exit 0
               fi
               echo "Waiting for health check ($i/12)..."
               sleep 15
             done
             echo "Backend health check failed!"
+            docker inspect portfolio-backend
+            docker logs portfolio-backend
             exit 1
