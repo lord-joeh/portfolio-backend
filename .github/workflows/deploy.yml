@@ -74,4 +74,5 @@ jobs:
             if [ -f "docker-compose.yaml" ]; then
               docker compose -f docker-compose.yaml up -d --no-deps portfolio-backend
             else
-              docker compose up -d --no-deps portfolio-backend
+              docker compose up -d --no-deps portfolio-bacend
+            fi
