@@ -83,7 +83,7 @@ jobs:
                 exit 0
               fi
               echo "Waiting for health check ($i/12)..."
-              sleep 5
+              sleep 15
             done
             echo "Backend health check failed!"
             exit 1
